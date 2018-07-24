@@ -54,6 +54,10 @@ Route::get('home', function () {
 
 //Route::get('/counterpartiesView', 'CounterpartiesController@index')->name('megacrm\counterpartiesView');
 
+Route::group(['prefix' => 'megacrm', 'namespace' => 'megacrm', 'middleware' => ['auth'] ], function () {
+    Route::get('/', 'CounterpartiesController@CounterpartiesList')->name('counterparties.index');
+});
+
 Route::get('/counterpartiesView', [
     'middleware' => 'auth',
     'uses' => 'CounterpartiesController@index'
