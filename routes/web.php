@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\checkauth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +13,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth.login');
+})->middleware(checkauth::class);
+
+//Route::get('/', ['middleware' => 'checkauth', function()
+//{
+//    return view('auth.login');
+//}]);
 
  Auth::routes();
 
@@ -54,11 +60,12 @@ Route::get('home', function () {
 
 //Route::get('/counterpartiesView', 'CounterpartiesController@index')->name('megacrm\counterpartiesView');
 
-Route::group(['prefix' => 'megacrm', 'namespace' => 'megacrm', 'middleware' => ['auth'] ], function () {
-    Route::get('/', 'CounterpartiesController@CounterpartiesList')->name('counterparties.index');
+Route::group(['prefix' => 'crm', 'namespace' => 'megacrm', 'middleware' => ['auth'] ], function () {
+    Route::get('/', 'dashboardController@dashboardView')->name('dashboardView.index');
+    // Route::get('/counterparties', 'CounterpartiesController@CounterpartiesList')->name('counterparties.index');
+    Route::resource('/counterparties', 'CounterpartiesController');
+   // Route::put('/counterparties/{date}', 'CounterpartiesController@update');
+    Route::resource('/page/{id?}', 'megacrm.CounterpartiesController');
+
 });
 
-Route::get('/counterpartiesView', [
-    'middleware' => 'auth',
-    'uses' => 'CounterpartiesController@index'
-]);

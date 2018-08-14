@@ -69,9 +69,8 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/profile') }}">Главная</a>
+                        <a href="{{ url('/megacrm') }}">Главная</a>
                     @else
-                        <a href="{{ url('/profile') }}">Главная</a>
                         <a href="{{ url('/login') }}">Войти</a>
                     @endif
                 </div>
@@ -80,10 +79,9 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                 @if (Auth::check())
-                    <a href="{{ url('/') }}">Главная</a>
+                    <a href="{{ url('/megacrm') }}">Главная</a>
                     <a href="{{ url('/profile') }}">Личный кабинет</a>
                 @else
-                    <a href="{{ url('/') }}">Главная</a>
                     <a href="{{ url('/login') }}">Войти</a>
             @endif
                     </div>

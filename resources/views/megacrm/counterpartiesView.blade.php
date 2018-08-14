@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('megacrm.layouts.main')
 
 @section('content')
     <div class="container">
@@ -84,9 +84,9 @@
 
                 <div class="col-md-12" id="main_app">
                     <div id="maps">
-                        <iframe src="https://bxapp.megamix.ru/map/core/public/" width="100%" height="830px">
-                            Ваш браузер не поддерживает плавающие фреймы!
-                        </iframe>
+                        {{--<iframe src="https://bxapp.megamix.ru/map/core/public/" width="100%" height="830px">--}}
+                            {{--Ваш браузер не поддерживает плавающие фреймы!--}}
+                        {{--</iframe>--}}
                     </div>
 
                 </div>
