@@ -1,4 +1,4 @@
-@extends('megacrm.layouts.main')
+@extends('Megacrm.layouts.main')
 
 @section('content')
     <div class="container">

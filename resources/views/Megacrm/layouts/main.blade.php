@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <script
-            src="//code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 
     <!-- CSRF Token -->
@@ -21,7 +18,17 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">--}}
 
+    <script type="text/javascript">
+        var user_id = "";
+        var urlReport = "";
+        window.onload = function () {
+            user_id = {{ Auth::user()->id }};
+            urlReport = "{{ url('Megacrm') }}";
+            console.log(user_id);
+        }
 
+    </script>
+    <script type="text/javascript" src="{{ asset('js/reports.js') }}"></script>
     <style>
         #maps {
             margin:0 2% 0 2%;
@@ -53,7 +60,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Все клиенты <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url('/crm/counterparties?date=DATE_CREATE&sort=DESC&page=0') }}"  id="all_counterparties">Контрагенты</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/crm/counterparties/page/1?date=DATE_CREATE&sort=DESC') }}"  id="all_counterparties">Контрагенты</a></li>
                             <li><a class="dropdown-item" href="#" onclick="leads_view('DATE_CREATE','DESC')"  id="all_leads">Лиды</a></li>
                         </ul>
                     </li>
@@ -77,12 +84,25 @@
                             <li><a class="dropdown-item" href="#" onclick='getAnalProdSklad()'>Анализ доступности товаров</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{ url('/admin') }}">Админ главная <span class="sr-only">(current)</span></a></li>
+                    @if ($Admin)
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Общие отчеты<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick='report_plan_mf()'>План производства</a></li>
+                                <li><a class="dropdown-item" href="#" onclick='report_manager_plan_mf()'>План менеджера на производства</a></li>
+                                <li><a class="dropdown-item" href="#" onclick='getReportDispatch()'>Текущие отгрузки</a></li>
+                                <li><a class="dropdown-item" href="#" onclick='getAnalProdSklad()'>Анализ доступности товаров</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
                         <li><a href="{{ route('login') }}">Войти</a></li>
                     @else
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>

@@ -23,6 +23,6 @@ class CounterpartiesController extends Controller
      */
     public function index()
     {
-        return view('megacrm.counterpartiesView');
+        return view('Megacrm.counterpartiesView');
     }
 }

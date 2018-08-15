@@ -9,12 +9,12 @@
                 <nav>
                     <ul class="nav nav-tabs" id="top_menu_items">
                         <li class="nav-item">
-                            <a href="{{ url('/megacrm') }}" class="nav-link active" onclick="" id="menu_home">Главная</a>
+                            <a href="{{ url('Megacrm') }}" class="nav-link active" onclick="" id="menu_home">Главная</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Все клиенты</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ url('/megacrm/counterparties?date=DATE_CREATE&sort=DESC&page=0') }}" id="all_counterparties">Контрагенты</a>
+                                <a class="dropdown-item" href="{{ url('Megacrm') }}" id="all_counterparties">Контрагенты</a>
                                 <a class="dropdown-item" href="#" onclick="leads_view('DATE_CREATE','DESC')"  id="all_leads">Лиды</a>
                             </div>
                         </li>

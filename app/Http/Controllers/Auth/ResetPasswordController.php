@@ -25,7 +25,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/megacrm';
+    protected $redirectTo = '/crm';
 
     /**
      * Create a new controller instance.

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\megacrm;
+namespace App\Http\Controllers\Megacrm;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,6 +8,6 @@ use App\Http\Controllers\Controller;
 class dashboardController extends Controller
 {
     public function dashboardView() {
-        return view('megacrm.dashboardView');
+        return view('Megacrm.dashboardView');
     }
 }

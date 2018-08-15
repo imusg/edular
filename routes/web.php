@@ -58,14 +58,24 @@ Route::get('home', function () {
 })->middleware('auth');
 
 
-//Route::get('/counterpartiesView', 'CounterpartiesController@index')->name('megacrm\counterpartiesView');
+//Route::get('/counterpartiesView', 'CounterpartiesController@index')->name('Megacrm\counterpartiesView');
 
-Route::group(['prefix' => 'crm', 'namespace' => 'megacrm', 'middleware' => ['auth'] ], function () {
+Route::group(['prefix' => 'crm', 'namespace' => 'Megacrm', 'middleware' => ['auth'] ], function () {
     Route::get('/', 'dashboardController@dashboardView')->name('dashboardView.index');
     // Route::get('/counterparties', 'CounterpartiesController@CounterpartiesList')->name('counterparties.index');
-    Route::resource('/counterparties', 'CounterpartiesController');
+    // Route::resource('/counterparties', 'CounterpartiesController@show');
+    Route::get('/counterparties/page/{id}', 'CounterpartiesController@show');
    // Route::put('/counterparties/{date}', 'CounterpartiesController@update');
-    Route::resource('/page/{id?}', 'megacrm.CounterpartiesController');
+   // Route::resource('/page/{id?}', 'Megacrm.CounterpartiesController');
+
+});
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth'] ], function () {
+    Route::get('/', 'dashboardController@show');
+    // Route::get('/counterparties', 'CounterpartiesController@CounterpartiesList')->name('counterparties.index');
+    // Route::resource('/counterparties', 'CounterpartiesController@show');
+    Route::get('/counterparties/page/{id}', 'CounterpartiesController@show');
+   // Route::put('/counterparties/{date}', 'CounterpartiesController@update');
+   // Route::resource('/page/{id?}', 'Megacrm.CounterpartiesController');
 
 });
 
