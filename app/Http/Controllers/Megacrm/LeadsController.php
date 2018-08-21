@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Megacrm;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Library\AccessControl;
 
-class dashboardController extends Controller
+class leadsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,15 +45,11 @@ class dashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($page)
     {
-        $qry = 'SELECT `id`, `name` FROM `users` WHERE 1';
-        $ppl = DB::select($qry);
-
         $class = new AccessControl;
-        return view('Megacrm.admin.dashboard')->with([
-            'Admin' => $class->Admin(1),
-            'Users' => $ppl
+        return view('Megacrm.leads.list')->with([
+            'Admin' => $class->Admin(1)
         ]);
     }
 
@@ -64,19 +59,9 @@ class dashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        $qry = "SELECT COUNT(*) as cnt FROM `admins` WHERE `user_id` = '" . $_REQUEST['newAdmin'] . "'";
-        $ppl = DB::select($qry);
-
-        if ($ppl[0]->cnt >= "1") {
-            return view("Megacrm.admin.responseAjax")->with(['response' => "exist"]);
-        } else {
-            $qry = "INSERT INTO `admins` (`user_id`) VALUE ('" . $_REQUEST['newAdmin'] . "')";
-            $ppl = DB::select($qry);
-            return view("Megacrm.admin.responseAjax")->with(['response' => "OK"]);
-        }
-
+        //
     }
 
     /**

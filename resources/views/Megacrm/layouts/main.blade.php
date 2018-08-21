@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -18,25 +18,34 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">--}}
 
-    <script type="text/javascript">
-        var user_id = "";
-        var urlReport = "";
-        window.onload = function () {
-            user_id = {{ Auth::user()->id }};
-            urlReport = "{{ url('Megacrm') }}";
-            console.log(user_id);
-        }
 
-    </script>
-    <script type="text/javascript" src="{{ asset('js/reports.js') }}"></script>
+
+
+    {{--<script type="text/javascript" src="{{ asset('js/reports.js') }}"></script>--}}
     <style>
         #maps {
             margin:0 2% 0 2%;
         }
 
+        #user_in_group {
+            width: 200px;
+        }
+
+        .MyScroll {
+            box-shadow: inset 0 0 5px 0px #007bff;
+            border-radius: 10px;
+            padding: 15px;
+            overflow-y: auto;
+            height: 300px;
+            width: 500px;
+            margin-left: 10px;
+        }
+
     </style>
 </head>
 <body>
+
+
 <div id="app">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -61,7 +70,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Все клиенты <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ url('/crm/counterparties/page/1?date=DATE_CREATE&sort=DESC') }}"  id="all_counterparties">Контрагенты</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="leads_view('DATE_CREATE','DESC')"  id="all_leads">Лиды</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/crm/leads/page/1?date=DATE_CREATE&sort=DESC') }}" id="all_leads">Лиды</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -84,15 +93,15 @@
                             <li><a class="dropdown-item" href="#" onclick='getAnalProdSklad()'>Анализ доступности товаров</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('/admin') }}">Админ главная <span class="sr-only">(current)</span></a></li>
+
                     @if ($Admin)
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Общие отчеты<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Администрирование<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" onclick='report_plan_mf()'>План производства</a></li>
-                                <li><a class="dropdown-item" href="#" onclick='report_manager_plan_mf()'>План менеджера на производства</a></li>
-                                <li><a class="dropdown-item" href="#" onclick='getReportDispatch()'>Текущие отгрузки</a></li>
-                                <li><a class="dropdown-item" href="#" onclick='getAnalProdSklad()'>Анализ доступности товаров</a></li>
+                                <li><a href="{{ url('/admin') }}">Админ главная</a></li>
+                                <li><a class="dropdown-item" href="{{ url('admin/rolegroup') }}">Права групп</a></li>
+                                <li><a class="dropdown-item" href="{{ url('admin/managegroup') }}">Управление группами</a></li>
+                                <li><a class="dropdown-item" href="{{ url('admin/managereport') }}">Управление отчетами</a></li>
                             </ul>
                         </li>
                     @endif
@@ -128,10 +137,49 @@
         </div><!-- /.container-fluid -->
     </nav>
 
+
     @yield('content')
 </div>
 
+<div id="dialog" title="Добавить пользователя">
+    <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
+
 <!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
+{{--<script src="{{ asset('js/app.js') }}"></script>--}}
+
+<script src="//use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript">
+
+
+    var user_id = "";
+    var urlReport = "";
+    $(document).ready(function () {
+        user_id = {{ Auth::user()->id }};
+        urlReport = "{{ url('Megacrm') }}";
+        console.log(user_id);
+
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 1000
+            },
+            minWidth: 900,
+            maxWidth: 1200,
+            minHeight: 500,
+            position: { my: "center", at: "top", of: "#app"}
+        });
+
+
+
+    });
+
+</script>
 </body>
 </html>

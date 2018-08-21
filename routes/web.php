@@ -65,17 +65,38 @@ Route::group(['prefix' => 'crm', 'namespace' => 'Megacrm', 'middleware' => ['aut
     // Route::get('/counterparties', 'CounterpartiesController@CounterpartiesList')->name('counterparties.index');
     // Route::resource('/counterparties', 'CounterpartiesController@show');
     Route::get('/counterparties/page/{id}', 'CounterpartiesController@show');
+    Route::get('/counterparties/card/{id}', 'cardViewController@counterpartiesShow');
+    Route::get('/leads/page/{id}', 'LeadsController@show');
+    Route::get('/leads/card/{id}', 'cardViewController@leadsShow');
    // Route::put('/counterparties/{date}', 'CounterpartiesController@update');
    // Route::resource('/page/{id?}', 'Megacrm.CounterpartiesController');
 
 });
+
+Route::group(['prefix' => 'report', 'namespace' => 'Reports', 'middleware' => ['auth'] ], function () {
+    Route::get('/', 'dashboardController@show');
+    Route::get('/managegroup', 'managegroupController@show');
+    Route::get('/managereport', 'managereportController@show');
+    Route::get('/rolegroup', 'rolegroupController@show');
+
+    Route::post('/addAdmin', 'dashboardController@edit');
+});
+
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth'] ], function () {
     Route::get('/', 'dashboardController@show');
-    // Route::get('/counterparties', 'CounterpartiesController@CounterpartiesList')->name('counterparties.index');
-    // Route::resource('/counterparties', 'CounterpartiesController@show');
-    Route::get('/counterparties/page/{id}', 'CounterpartiesController@show');
-   // Route::put('/counterparties/{date}', 'CounterpartiesController@update');
-   // Route::resource('/page/{id?}', 'Megacrm.CounterpartiesController');
+    Route::get('/managegroup', 'managegroupController@show');
+    Route::post('/managegroup/getUserInGroup/', 'managegroupController@getUserInGroup');
+    Route::post('/managegroup/searchUser', 'managegroupController@searchUser');
+    Route::post('/managegroup/addUserToGroup', 'managegroupController@addUserToGroup');
 
+    Route::get('/managereport', 'managereportController@show');
+    Route::post('/managereport/getReportUser/{id}', 'managereportController@getReportUser');
+    Route::post('/managereport/getReportGroup/{id}', 'managereportController@getReportGroup');
+    Route::post('/managereport/saveUserReport', 'managereportController@saveUserReport');
+    Route::post('/managereport/saveGroupReport', 'managereportController@saveGroupReport');
+
+    Route::get('/rolegroup', 'rolegroupController@show');
+    Route::post('/addAdmin', 'dashboardController@edit');
 });
 

@@ -11,7 +11,7 @@
 
 
                     <div id="maps">
-                        <iframe src="https://bxapp.megamix.ru/map/core/public/" width="100%" height="100%">
+                        <iframe src="https://bxapp.megamix.ru/map/core/public/?user_id={{ Auth::user()->id }}" width="100%" height="100%">
                             Ваш браузер не поддерживает плавающие фреймы!
                         </iframe>
                         <script type="text/javascript">
